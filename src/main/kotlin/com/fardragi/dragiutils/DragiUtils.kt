@@ -1,5 +1,7 @@
 package com.fardragi.dragiutils
 
+import com.fardragi.dragiutils.exceptions.DragiUtilsException
+import com.fardragi.dragiutils.server.ServerProxy
 import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.SidedProxy
 import cpw.mods.fml.common.event.FMLInitializationEvent
@@ -13,30 +15,27 @@ import org.apache.logging.log4j.Logger
     modid = DragiUtils.MODID,
     version = Tags.VERSION,
     name = "DragiUtils",
-    acceptedMinecraftVersions = "[1.7.10]")
+    acceptedMinecraftVersions = "[1.7.10]",
+    acceptableRemoteVersions = "*")
 class DragiUtils {
-  @Mod.EventHandler // preInit "Run before anything else. Read your config, create blocks, items,
-  // etc, and register them with the
-  // GameRegistry." (Remove if not needed)
+  @Mod.EventHandler
   fun preInit(event: FMLPreInitializationEvent) {
-    proxy!!.preInit(event)
+    proxy.preInit(event)
   }
 
-  @Mod.EventHandler // load "Do your mod setup. Build whatever data structures you care about.
-  // Register recipes." (Remove if not needed)
+  @Mod.EventHandler
   fun init(event: FMLInitializationEvent?) {
-    proxy!!.init(event)
+    proxy.init(event)
   }
 
-  @Mod.EventHandler // postInit "Handle interaction with other mods, complete your setup based on
-  // this." (Remove if not needed)
+  @Mod.EventHandler
   fun postInit(event: FMLPostInitializationEvent?) {
-    proxy!!.postInit(event)
+    proxy.postInit(event)
   }
 
-  @Mod.EventHandler // register server commands in this event handler (Remove if not needed)
+  @Mod.EventHandler
   fun serverStarting(event: FMLServerStartingEvent?) {
-    proxy!!.serverStarting(event)
+    proxy.serverStarting(event)
   }
 
   companion object {
@@ -44,8 +43,11 @@ class DragiUtils {
     @JvmField val LOG: Logger = LogManager.getLogger(MODID)
 
     @SidedProxy(
-        clientSide = "com.fardragi.dragiutils.ClientProxy",
-        serverSide = "com.fardragi.dragiutils.CommonProxy")
-    var proxy: CommonProxy? = null
+        clientSide = "com.fardragi.dragiutils.client.ClientProxy",
+        serverSide = "com.fardragi.dragiutils.server.ServerProxy")
+    private var _proxy: ServerProxy? = null
+
+    val proxy: ServerProxy
+      get() = _proxy ?: throw DragiUtilsException("Fail get proxy")
   }
 }
