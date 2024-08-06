@@ -12,20 +12,17 @@ class DatabaseModule(databaseConfig: DatabaseConfig) {
     val connectionString =
         "jdbc:mariadb://${databaseConfig.host}:${databaseConfig.port}/${databaseConfig.database}"
 
-    FMLLog.info("GAY:$connectionString")
-
     try {
-      val db =
-          Database.connect(
-              connectionString,
-              driver = "org.mariadb.jdbc.Driver",
-              user = databaseConfig.user,
-              password = databaseConfig.password,
-          )
+      Database.connect(
+          connectionString,
+          driver = "org.mariadb.jdbc.Driver",
+          user = databaseConfig.user,
+          password = databaseConfig.password,
+      )
+
+      transaction { SchemaUtils.createMissingTablesAndColumns(User) }
     } catch (ex: Exception) {
       FMLLog.severe(ex.message)
     }
-
-    transaction { SchemaUtils.createMissingTablesAndColumns(User) }
   }
 }
