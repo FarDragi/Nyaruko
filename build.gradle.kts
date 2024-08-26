@@ -1,6 +1,6 @@
 plugins {
-  id ("com.gtnewhorizons.gtnhconvention")
-  id ("org.jetbrains.kotlin.jvm")
+  id("com.gtnewhorizons.gtnhconvention")
+  id("org.jetbrains.kotlin.jvm")
 }
 
 tasks.register("copyJar") {

@@ -40,13 +40,13 @@ class DragiUtils {
 
   companion object {
     const val MODID: String = "dragiutils"
-    @JvmField val LOG: Logger = LogManager.getLogger(MODID)
 
     @SidedProxy(
         clientSide = "com.fardragi.dragiutils.client.ClientProxy",
         serverSide = "com.fardragi.dragiutils.server.ServerProxy")
     private var _proxy: ServerProxy? = null
 
+    val log: Logger = LogManager.getLogger(MODID)
     val proxy: ServerProxy
       get() = _proxy ?: throw DragiUtilsException("Fail get proxy")
   }

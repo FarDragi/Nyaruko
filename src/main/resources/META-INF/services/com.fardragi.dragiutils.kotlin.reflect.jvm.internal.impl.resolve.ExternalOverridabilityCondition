@@ -1,0 +1,3 @@
+com.fardragi.dragiutils.kotlin.reflect.jvm.internal.impl.load.java.FieldOverridabilityCondition
+com.fardragi.dragiutils.kotlin.reflect.jvm.internal.impl.load.java.ErasedOverridabilityCondition
+com.fardragi.dragiutils.kotlin.reflect.jvm.internal.impl.load.java.JavaIncompatibilityRulesOverridabilityCondition
