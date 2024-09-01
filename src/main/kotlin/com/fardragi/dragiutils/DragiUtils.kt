@@ -28,6 +28,14 @@ object DragiUtils {
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
+        val session = Database.sessionFactory.openSession()
+
+        session.beginTransaction()
+        val user = User()
+        user.name = "test";
+        session.save(user)
+        session.transaction.commit()
+
         proxy.onInit(event)
     }
 
