@@ -1,6 +1,6 @@
 package com.fardragi.dragiutils
 
-import com.fardragi.dragiutils.proxy.CommonProxy
+import com.fardragi.dragiutils.server.ServerProxy
 import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.SidedProxy
 import cpw.mods.fml.common.event.FMLInitializationEvent
@@ -18,8 +18,8 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent
     acceptableRemoteVersions = "*"
 )
 object DragiUtils {
-    @SidedProxy(serverSide = "$GROUPNAME.proxy.CommonProxy", clientSide = "$GROUPNAME.proxy.ClientProxy")
-    lateinit var proxy: CommonProxy
+    @SidedProxy(serverSide = "$GROUPNAME.server.ServerProxy", clientSide = "$GROUPNAME.client.ClientProxy")
+    lateinit var proxy: ServerProxy
 
     @Mod.EventHandler
     fun onPreInit(event: FMLPreInitializationEvent) {
@@ -28,14 +28,6 @@ object DragiUtils {
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
-        val session = Database.sessionFactory.openSession()
-
-        session.beginTransaction()
-        val user = User()
-        user.name = "test";
-        session.save(user)
-        session.transaction.commit()
-
         proxy.onInit(event)
     }
 

@@ -38,4 +38,6 @@ dependencies {
 
     shadowImplementation("org.hibernate:hibernate-core:5.6.15.Final")
     shadowImplementation("org.mariadb.jdbc:mariadb-java-client:3.4.1")
+
+    shadowImplementation("io.insert-koin:koin-core:3.5.6")
 }
