@@ -1,17 +1,10 @@
 package com.fardragi.dragiutils.database.models
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import org.ktorm.entity.Entity
 
-@Entity
-@Table(name = "users")
-class User {
-    @Id
-    @Column(nullable = false)
-    var id: String = ""
+interface User : Entity<User> {
+    companion object : Entity.Factory<User>()
 
-    @Column(nullable = false)
-    var name: String = ""
+    var id: String
+    var name: String
 }
