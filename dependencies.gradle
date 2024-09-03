@@ -33,20 +33,11 @@
  *
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
-    dependencies {
-        api("com.github.GTNewHorizons:Forgelin:1.10.0-GTNH")
+dependencies {
+    api("com.github.GTNewHorizons:Forgelin:1.10.0-GTNH")
 
-        shadowImplementation("org.mariadb.jdbc:mariadb-java-client:3.4.1")
-        shadowImplementation("com.zaxxer:HikariCP:4.0.3")
-        shadowImplementation("org.ktorm:ktorm-core:4.1.0")
+    shadowImplementation("org.mariadb.jdbc:mariadb-java-client:3.4.1")
+    shadowImplementation("org.ktorm:ktorm-core:4.1.0")
 
-//        api("org.apache.logging.log4j:log4j-api:2.0-beta9-fixed")
-//        api("org.apache.logging.log4j:log4j-core:2.0-beta9-fixed")
-//        shadowImplementation("commons-logging:commons-logging:1.3.4")
-//        shadowImplementation("org.apache.logging.log4j:log4j-slf4j-impl:2.23.1")
-
-        implementation("org.slf4j:slf4j-api:1.8.0-beta4")
-        implementation("org.slf4j:slf4j-simple:1.8.0-beta4")
-
-        shadowImplementation("io.insert-koin:koin-core:3.5.6")
-    }
+    shadowImplementation("io.insert-koin:koin-core:3.5.6")
+}
