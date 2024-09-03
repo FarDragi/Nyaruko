@@ -1,6 +1,6 @@
 package com.fardragi.dragiutils.database.tables
 
-import com.fardragi.dragiutils.database.models.User
+import com.fardragi.dragiutils.models.User
 import org.ktorm.schema.Table
 import org.ktorm.schema.varchar
 
