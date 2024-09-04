@@ -1,6 +1,6 @@
 package com.fardragi.dragiutils.auth.commands
 
-import com.fardragi.dragiutils.minecraft.PermissionLevel
+import com.fardragi.dragiutils.enums.PermissionLevel
 import net.minecraft.command.CommandBase
 import net.minecraft.command.ICommandSender
 import net.minecraft.server.MinecraftServer

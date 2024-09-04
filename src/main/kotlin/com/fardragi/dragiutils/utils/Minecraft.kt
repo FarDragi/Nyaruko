@@ -1,10 +1,10 @@
-package com.fardragi.dragiutils.minecraft
+package com.fardragi.dragiutils.utils
 
 import cpw.mods.fml.common.FMLCommonHandler
 import java.io.File
 import net.minecraft.client.Minecraft
 
-object Utils {
+object Minecraft {
     fun getWorkingDir(): File {
         val baseDir =
             if (FMLCommonHandler.instance().side.isClient) Minecraft.getMinecraft().mcDataDir

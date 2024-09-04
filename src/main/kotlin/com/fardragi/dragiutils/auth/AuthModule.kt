@@ -7,10 +7,9 @@ import net.minecraft.command.ServerCommandManager
 import net.minecraft.server.MinecraftServer
 import org.koin.core.component.KoinScopeComponent
 import org.koin.core.component.createScope
-import org.koin.core.scope.Scope
 
 class AuthModule() : KoinScopeComponent {
-    override val scope: Scope by lazy { createScope(this) }
+    override val scope by lazy { createScope(this) }
 
     private lateinit var loginHandler: LoginHandler
     private var commandManager = MinecraftServer.getServer().commandManager as ServerCommandManager
