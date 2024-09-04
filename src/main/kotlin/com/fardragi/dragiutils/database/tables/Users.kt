@@ -1,10 +1,12 @@
 package com.fardragi.dragiutils.database.tables
 
-import com.fardragi.dragiutils.models.User
-import org.ktorm.schema.Table
-import org.ktorm.schema.varchar
+import org.jetbrains.exposed.dao.id.IdTable
 
-object Users : Table<User>("users"){
-    val id = varchar("id").primaryKey().bindTo { it.id }
-    val name = varchar("name").bindTo { it.name }
+object UsersTable : IdTable<String>("users") {
+    override val id = varchar("id", 36).entityId()
+    val name = varchar("name", 50)
+    val hash = varchar("hash", 32).nullable()
+    val salt = varchar("salt", 32).nullable()
+
+    override val primaryKey = PrimaryKey(id)
 }

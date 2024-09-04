@@ -1,14 +1,18 @@
 package com.fardragi.dragiutils.models
 
-import org.ktorm.entity.Entity
+import com.fardragi.dragiutils.database.tables.UsersTable
+import org.jetbrains.exposed.dao.Entity
+import org.jetbrains.exposed.dao.EntityClass
+import org.jetbrains.exposed.dao.id.EntityID
 
-interface User : Entity<User> {
-    companion object : Entity.Factory<User>()
+class User(id: EntityID<String>) : Entity<String>(id) {
+    companion object : EntityClass<String, User>(UsersTable)
 
-    var id: String
-    var name: String
-    var hash: String?
-    var salt: String?
+    var name by UsersTable.name
+    private var hash by UsersTable.hash
+    private var salt by UsersTable.salt
 
     val isRegistered get() = hash != null && salt != null
 }
+
+

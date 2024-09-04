@@ -16,3 +16,7 @@ buildConfig {
     buildConfigField('String', 'GROUPNAME', "\"${project.modGroup}\"")
     useKotlinOutput { topLevelConstants = true }
 }
+
+shadowJar {
+    relocate 'org.slf4j', 'com.fardragi.dragiutils.shadow.org.sl4j'
+}

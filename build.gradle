@@ -3,6 +3,3 @@ plugins {
     id 'com.gtnewhorizons.gtnhconvention'
 }
 
-shadowJar {
-    relocate 'org.slf4j', 'shadow.org.sl4j'
-}

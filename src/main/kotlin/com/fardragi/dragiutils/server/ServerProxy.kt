@@ -2,7 +2,6 @@ package com.fardragi.dragiutils.server
 
 import com.fardragi.dragiutils.appModule
 import com.fardragi.dragiutils.auth.AuthModule
-import com.fardragi.dragiutils.database.ExposedDatabase
 import cpw.mods.fml.common.event.FMLInitializationEvent
 import cpw.mods.fml.common.event.FMLPostInitializationEvent
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
@@ -14,8 +13,6 @@ open class ServerProxy {
     private lateinit var app: KoinApplication
 
     fun onPreInit(event: FMLPreInitializationEvent) {
-        ExposedDatabase()
-
         app = startKoin {
             modules(appModule)
         }
