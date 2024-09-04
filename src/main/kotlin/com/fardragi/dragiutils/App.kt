@@ -3,7 +3,7 @@ package com.fardragi.dragiutils
 import com.fardragi.dragiutils.auth.authModule
 import com.fardragi.dragiutils.config.Config
 import com.fardragi.dragiutils.config.DatabaseConfig
-import com.fardragi.dragiutils.database.Database
+import com.fardragi.dragiutils.database.DatabaseConnection
 import com.fardragi.dragiutils.permission.permissionModule
 import org.koin.core.module.dsl.createdAtStart
 import org.koin.core.module.dsl.withOptions
@@ -15,5 +15,7 @@ val appModule = module {
         createdAtStart()
     }
     single { DatabaseConfig(get()) }
-    single { Database(get()) }
+    single { DatabaseConnection(get()) } withOptions {
+        createdAtStart()
+    }
 }

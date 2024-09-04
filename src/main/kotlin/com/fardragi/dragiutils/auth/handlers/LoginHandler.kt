@@ -3,6 +3,9 @@ package com.fardragi.dragiutils.auth.handlers
 import com.fardragi.dragiutils.services.UserService
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginHandler(private val userService: UserService) {
     @SubscribeEvent
@@ -10,6 +13,9 @@ class LoginHandler(private val userService: UserService) {
         val userId = event.player.uniqueID.toString()
         val userName = event.player.displayName
 
-        userService.getOrCreateUser(userId, userName)
+        CoroutineScope(Dispatchers.IO).launch {
+            userService.getOrCreateUser(userId, userName)
+            userService.setPassword(userId, "123456789")
+        }
     }
 }
