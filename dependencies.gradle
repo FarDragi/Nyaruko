@@ -33,11 +33,28 @@
  *
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
+def exposedVersion = "0.53.0"
+def log4jVersion = "2.11.2"
+
 dependencies {
     api("com.github.GTNewHorizons:Forgelin:1.10.0-GTNH")
 
-    shadowImplementation("org.mariadb.jdbc:mariadb-java-client:3.4.1")
+    shadowImplementation("org.mariadb.jdbc:mariadb-java-client:3.4.1"){
+        exclude module: "slf4j-api"
+    }
     shadowImplementation("org.ktorm:ktorm-core:4.1.0")
+
+//    api("org.slf4j:slf4j-api:2.0.9")
+//    api("org.apache.logging.log4j:log4j-api:$log4jVersion")
+//    api("org.apache.logging.log4j:log4j-core:$log4jVersion")
+//    shadowImplementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
+
+    shadowImplementation("org.jetbrains.exposed:exposed-core:$exposedVersion") {
+        exclude module: "slf4j-api"
+    }
+    shadowImplementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    shadowImplementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+//    shadowImplementation("org.slf4j:slf4j-nop:2.0.9")
 
     shadowImplementation("io.insert-koin:koin-core:3.5.6")
 }
