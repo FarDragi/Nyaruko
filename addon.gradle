@@ -18,5 +18,5 @@ buildConfig {
 }
 
 shadowJar {
-    relocate 'org.slf4j', 'com.fardragi.dragiutils.shadow.org.sl4j'
+    relocate 'org.slf4j', 'com.fardragi.nyaruko.shadow.org.sl4j'
 }
