@@ -18,7 +18,7 @@ object CustomLogger : SqlLogger {
     }
 }
 
-suspend fun <T> query(block: () -> T, dispatcher: CoroutineDispatcher = Dispatchers.IO): T = withContext(dispatcher) {
+suspend fun <T> query(dispatcher: CoroutineDispatcher = Dispatchers.IO, block: () -> T): T = withContext(dispatcher) {
     transaction {
         addLogger(CustomLogger)
         block()
