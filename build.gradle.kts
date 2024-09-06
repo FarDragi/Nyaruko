@@ -5,8 +5,8 @@ plugins {
 
 sonar {
     properties {
-        property("sonar.projectKey", "DragiUtils")
-        property("sonar.projectName", "DragiUtils")
+        property("sonar.projectKey", "Nyaruko")
+        property("sonar.projectName", "Nyaruko")
     }
 }
 
@@ -14,7 +14,7 @@ tasks.register("copyJar") {
     group = "fardragi"
     dependsOn("build")
     doLast() {
-        val target = File("C:\\Users\\mrvul\\Documents\\Minecraft\\FarDragiServer\\mods\\dragiutils.jar")
+        val target = File("C:\\Users\\mrvul\\Documents\\Minecraft\\FarDragiServer\\mods\\nyaruko.jar")
         val jar = File("./build/libs").walk()
             .filter { it.isFile && it.name.endsWith(".jar") }
             .sortedByDescending { it.lastModified() }
