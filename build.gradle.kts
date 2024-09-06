@@ -11,6 +11,7 @@ sonar {
 }
 
 tasks.register("copyJar") {
+    description = "Copy jar to server location"
     group = "fardragi"
     dependsOn("build")
     doLast() {
@@ -27,6 +28,7 @@ tasks.register("copyJar") {
 }
 
 tasks.register<Exec>("startServer") {
+    description = "Run minecraft server"
     group = "fardragi"
     standardInput = System.`in`
     dependsOn("copyJar")

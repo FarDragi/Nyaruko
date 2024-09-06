@@ -1,6 +1,7 @@
 package com.fardragi.nyaruko.database
 
 import com.fardragi.nyaruko.NyarukoLog
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.SqlLogger
@@ -17,7 +18,7 @@ object CustomLogger : SqlLogger {
     }
 }
 
-suspend fun <T> query(block: () -> T): T = withContext(Dispatchers.IO) {
+suspend fun <T> query(block: () -> T, dispatcher: CoroutineDispatcher = Dispatchers.IO): T = withContext(dispatcher) {
     transaction {
         addLogger(CustomLogger)
         block()
