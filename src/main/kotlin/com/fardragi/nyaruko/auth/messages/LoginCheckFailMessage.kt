@@ -4,10 +4,10 @@ import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 
-object RegisterMessage {
+object LoginCheckFailMessage {
     fun create(): ChatComponentText {
-        val text = ChatComponentText("use /register <password> <repeat password>")
-        text.chatStyle = ChatStyle().setColor(EnumChatFormatting.YELLOW)
+        val text = ChatComponentText("Password incorrect")
+        text.chatStyle = ChatStyle().setColor(EnumChatFormatting.RED)
 
         return text
     }

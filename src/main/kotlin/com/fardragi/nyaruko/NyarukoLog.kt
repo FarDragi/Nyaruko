@@ -8,4 +8,8 @@ object NyarukoLog {
     fun info(message: String) {
         logger.info(message)
     }
+
+    fun error(message: String) {
+        logger.error(message)
+    }
 }

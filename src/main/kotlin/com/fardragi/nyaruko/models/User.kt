@@ -18,6 +18,10 @@ class User(id: EntityID<String>) : Entity<String>(id) {
         hash = createEncoder().encode(password)
     }
 
+    fun checkPassword(password: String): Boolean {
+        return createEncoder().matches(password, hash)
+    }
+
     private fun createEncoder(): Argon2PasswordEncoder {
         return Argon2PasswordEncoder(
             16, 32, 2, 1024 * 64, 10

@@ -1,5 +1,6 @@
 package com.fardragi.nyaruko.auth
 
+import com.fardragi.nyaruko.auth.commands.LoginCommand
 import com.fardragi.nyaruko.auth.commands.RegisterCommand
 import com.fardragi.nyaruko.auth.handlers.LoginHandler
 import cpw.mods.fml.common.FMLCommonHandler
@@ -18,6 +19,7 @@ class AuthModule() : KoinScopeComponent {
         loginHandler = LoginHandler(scope.get())
         FMLCommonHandler.instance().bus().register(loginHandler)
 
-        commandManager.registerCommand(RegisterCommand())
+        commandManager.registerCommand(RegisterCommand(scope.get()))
+        commandManager.registerCommand(LoginCommand(scope.get()))
     }
 }

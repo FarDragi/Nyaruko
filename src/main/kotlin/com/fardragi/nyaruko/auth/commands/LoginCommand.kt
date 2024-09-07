@@ -1,7 +1,7 @@
 package com.fardragi.nyaruko.auth.commands
 
-import com.fardragi.nyaruko.auth.messages.AlreadyRegisteredMessage
-import com.fardragi.nyaruko.auth.messages.LoginMessage
+import com.fardragi.nyaruko.auth.messages.LoginCheckFailMessage
+import com.fardragi.nyaruko.auth.messages.LoginCheckSuccessMessage
 import com.fardragi.nyaruko.enums.PermissionLevel
 import com.fardragi.nyaruko.services.UserService
 import com.fardragi.nyaruko.shared.commands.NyarukoCommandBase
@@ -10,37 +10,28 @@ import net.minecraft.command.ICommandSender
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.util.ChatComponentText
 
-class RegisterCommand(private val userService: UserService) : NyarukoCommandBase() {
+class LoginCommand(private val userService: UserService) : NyarukoCommandBase() {
     override fun getCommandName(): String {
-        return "register"
+        return "login"
     }
 
     override fun getCommandUsage(sender: ICommandSender?): String {
-        return "/register <password> <repeat password>"
+        return "/login <password>"
     }
 
     override suspend fun processCommandPlayer(player: EntityPlayerMP, args: Array<out String>): ChatComponentText {
-        if (args.isEmpty() || args.size < 2) {
+        if (args.isEmpty()) {
             return FailCommandMessage.create()
         }
 
         val userId = player.uniqueID.toString()
         val password = args[0]
-        val repeatPassword = args[1]
 
-        val user = userService.getById(userId)
-
-        if (user.isRegistered) {
-            return AlreadyRegisteredMessage.create()
+        if (!userService.checkPassword(userId, password)) {
+               return LoginCheckFailMessage.create()
         }
 
-        if (password != repeatPassword) {
-            FailCommandMessage.create("Password not match")
-        }
-
-        userService.setPassword(userId, repeatPassword)
-
-        return LoginMessage.create()
+        return LoginCheckSuccessMessage.create()
     }
 
     override fun getRequiredPermissionLevel(): Int {
