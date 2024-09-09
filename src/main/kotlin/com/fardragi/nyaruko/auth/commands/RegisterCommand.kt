@@ -5,7 +5,7 @@ import com.fardragi.nyaruko.auth.messages.LoginMessage
 import com.fardragi.nyaruko.enums.PermissionLevel
 import com.fardragi.nyaruko.services.UserService
 import com.fardragi.nyaruko.shared.commands.NyarukoCommandBase
-import com.fardragi.nyaruko.shared.messages.FailCommandMessage
+import com.fardragi.nyaruko.shared.messages.DefaultMessage
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.util.ChatComponentText
@@ -16,12 +16,12 @@ class RegisterCommand(private val userService: UserService) : NyarukoCommandBase
     }
 
     override fun getCommandUsage(sender: ICommandSender?): String {
-        return "/register <password> <repeat password>"
+        return "/register <senha> <repetir senha>"
     }
 
-    override suspend fun processCommandPlayer(player: EntityPlayerMP, args: Array<out String>): ChatComponentText {
+    override suspend fun processCommandPlayer(player: EntityPlayerMP, args: Array<out String>): Array<ChatComponentText> {
         if (args.isEmpty() || args.size < 2) {
-            return FailCommandMessage.create()
+            return arrayOf(DefaultMessage.usage(getCommandUsage(player), commandName))
         }
 
         val userId = player.uniqueID.toString()
@@ -31,16 +31,16 @@ class RegisterCommand(private val userService: UserService) : NyarukoCommandBase
         val user = userService.getById(userId)
 
         if (user.isRegistered) {
-            return AlreadyRegisteredMessage.create()
+            return arrayOf(AlreadyRegisteredMessage.create())
         }
 
         if (password != repeatPassword) {
-            FailCommandMessage.create("Password not match")
+            return arrayOf(DefaultMessage.error("As senhas não são iguais"))
         }
 
         userService.setPassword(userId, repeatPassword)
 
-        return LoginMessage.create()
+        return arrayOf(LoginMessage.create())
     }
 
     override fun getRequiredPermissionLevel(): Int {

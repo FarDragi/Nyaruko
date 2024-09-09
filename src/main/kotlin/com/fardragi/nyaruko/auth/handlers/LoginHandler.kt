@@ -1,7 +1,7 @@
 package com.fardragi.nyaruko.auth.handlers
 
-import com.fardragi.nyaruko.auth.messages.LoginMessage
-import com.fardragi.nyaruko.auth.messages.RegisterMessage
+import com.fardragi.nyaruko.auth.messages.WelcomeMessage
+import com.fardragi.nyaruko.extensions.addChatMessages
 import com.fardragi.nyaruko.services.UserService
 import cpw.mods.fml.common.eventhandler.EventPriority
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
@@ -23,12 +23,8 @@ class LoginHandler(private val userService: UserService) {
 
             delay(2000)
 
-            val message = if (user.isRegistered)
-                LoginMessage.create()
-            else
-                RegisterMessage.create()
-
-            player.addChatMessage(message)
+            val welcome = WelcomeMessage.create(userName, user.isRegistered)
+            player.addChatMessages(welcome)
         }
     }
 }
