@@ -10,7 +10,6 @@ class DatabaseConfig(config: Config) {
     val user: String = config.configuration.getString("user", CATEGORY, "root", "Database user")
 
     init {
-        if (config.configuration.hasChanged())
-            config.configuration.save()
+        config.save()
     }
 }

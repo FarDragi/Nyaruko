@@ -1,17 +1,10 @@
 package com.fardragi.nyaruko.extensions
 
+import com.fardragi.nyaruko.shared.messages.MessageBuilder
 import net.minecraft.command.ICommandSender
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.util.ChatComponentText
 
-fun EntityPlayer.addChatMessages(messages: Array<ChatComponentText>) {
-    messages.forEach {
-        this.addChatMessage(it)
-    }
-}
-
-fun ICommandSender.addChatMessages(messages: Array<ChatComponentText>) {
-    messages.forEach {
+fun ICommandSender.sendMessages(messageBuilder: MessageBuilder) {
+    messageBuilder.build().forEach {
         this.addChatMessage(it)
     }
 }

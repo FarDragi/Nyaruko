@@ -18,6 +18,12 @@ class MessageBuilder {
         return this
     }
 
+    fun add(textBuilder: TextBuilder): MessageBuilder {
+        messages.add(textBuilder.build())
+
+        return this
+    }
+
     fun addEmptyLine(): MessageBuilder {
         add { builder ->
             builder.append("")

@@ -1,13 +1,14 @@
 package com.fardragi.nyaruko.auth.commands
 
-import com.fardragi.nyaruko.auth.messages.LoginCheckSuccessMessage
+import com.fardragi.nyaruko.auth.messages.LoginMessage
 import com.fardragi.nyaruko.enums.PermissionLevel
+import com.fardragi.nyaruko.exceptions.MessageException
+import com.fardragi.nyaruko.extensions.sendMessages
 import com.fardragi.nyaruko.services.UserService
 import com.fardragi.nyaruko.shared.commands.NyarukoCommandBase
 import com.fardragi.nyaruko.shared.messages.DefaultMessage
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.util.ChatComponentText
 
 class LoginCommand(private val userService: UserService) : NyarukoCommandBase() {
     override fun getCommandName(): String {
@@ -18,19 +19,19 @@ class LoginCommand(private val userService: UserService) : NyarukoCommandBase() 
         return "/login <senha>"
     }
 
-    override suspend fun processCommandPlayer(player: EntityPlayerMP, args: Array<out String>): Array<ChatComponentText> {
+    override suspend fun processCommandPlayer(player: EntityPlayerMP, args: Array<out String>) {
         if (args.isEmpty()) {
-            return arrayOf(DefaultMessage.usage(getCommandUsage(player), commandName))
+            throw MessageException(DefaultMessage.usage(LoginMessage.usageAction()))
         }
 
         val userId = player.uniqueID.toString()
         val password = args[0]
 
         if (!userService.checkPassword(userId, password)) {
-               return arrayOf(DefaultMessage.error("Senha incorreta"))
+            throw MessageException(DefaultMessage.error("Senha incorreta"))
         }
 
-        return arrayOf(LoginCheckSuccessMessage.create())
+        player.sendMessages(DefaultMessage.success("Logado com sucesso"))
     }
 
     override fun getRequiredPermissionLevel(): Int {

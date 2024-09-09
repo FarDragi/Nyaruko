@@ -8,6 +8,10 @@ class Config {
     val configuration = Configuration(File(Minecraft.getWorkingDir(), "config.cfg"))
 
     init {
+        save()
+    }
+
+    fun save() {
         if (configuration.hasChanged())
             configuration.save()
     }

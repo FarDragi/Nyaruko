@@ -1,28 +1,36 @@
 package com.fardragi.nyaruko.shared.messages
 
-import net.minecraft.event.ClickEvent
-import net.minecraft.util.ChatComponentText
-import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 
 object DefaultMessage {
-    fun usage(usage: String, command: String): ChatComponentText {
-        val textComponent = ChatComponentText("Falha em executar o comando")
-        textComponent.chatStyle = ChatStyle().setColor(EnumChatFormatting.RED)
+    fun usage(usageAction: TextBuilder): MessageBuilder {
+        val messageBuilder = MessageBuilder()
+            .add { builder ->
+                builder.append("Falha ao executar", EnumChatFormatting.RED)
+            }
+            .add { builder ->
+                builder.append("Use ", EnumChatFormatting.YELLOW)
+                builder.append(usageAction)
+            }
 
-        val usageComponent = ChatComponentText("[$usage]")
-        usageComponent.chatStyle = ChatStyle().setColor(EnumChatFormatting.GOLD)
-            .setChatClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help $command"))
-
-        textComponent.appendSibling(usageComponent)
-
-        return textComponent
+        return messageBuilder
     }
 
-    fun error(message: String): ChatComponentText {
-        val textComponent = ChatComponentText(message)
-        textComponent.chatStyle = ChatStyle().setColor(EnumChatFormatting.RED)
+    fun error(message: String): MessageBuilder {
+        val messageBuilder = MessageBuilder()
+            .add { builder ->
+                builder.append(message, EnumChatFormatting.RED)
+            }
 
-        return textComponent
+        return messageBuilder
+    }
+
+    fun success(message: String): MessageBuilder {
+        val messageBuilder = MessageBuilder()
+            .add { builder ->
+                builder.append(message, EnumChatFormatting.GREEN)
+            }
+
+        return messageBuilder
     }
 }

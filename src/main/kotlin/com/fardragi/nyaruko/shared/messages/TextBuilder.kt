@@ -1,6 +1,7 @@
 package com.fardragi.nyaruko.shared.messages
 
 import net.minecraft.event.ClickEvent
+import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
@@ -40,6 +41,12 @@ class TextBuilder {
         return this
     }
 
+    fun append(textBuilder: TextBuilder): TextBuilder {
+        componentText.appendSibling(textBuilder.build())
+
+        return this
+    }
+
     private fun text(text: String, color: EnumChatFormatting = EnumChatFormatting.RESET): TextBuilder {
         componentText.appendText(text)
         componentText.chatStyle.color = color
@@ -61,6 +68,15 @@ class TextBuilder {
 
     fun clickEvent(action: ClickEvent.Action, value: String): TextBuilder {
         componentText.chatStyle.chatClickEvent = ClickEvent(action, value)
+
+        return this
+    }
+
+    fun hoverEvent(action: HoverEvent.Action, block: (TextBuilder) -> Unit): TextBuilder {
+        val textBuilder = TextBuilder()
+        block(textBuilder)
+
+        componentText.chatStyle.chatHoverEvent = HoverEvent(action, textBuilder.build())
 
         return this
     }

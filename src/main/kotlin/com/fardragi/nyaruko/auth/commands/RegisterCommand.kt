@@ -1,14 +1,14 @@
 package com.fardragi.nyaruko.auth.commands
 
-import com.fardragi.nyaruko.auth.messages.AlreadyRegisteredMessage
-import com.fardragi.nyaruko.auth.messages.LoginMessage
+import com.fardragi.nyaruko.auth.messages.RegisterMessage
 import com.fardragi.nyaruko.enums.PermissionLevel
+import com.fardragi.nyaruko.exceptions.MessageException
+import com.fardragi.nyaruko.extensions.sendMessages
 import com.fardragi.nyaruko.services.UserService
 import com.fardragi.nyaruko.shared.commands.NyarukoCommandBase
 import com.fardragi.nyaruko.shared.messages.DefaultMessage
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.util.ChatComponentText
 
 class RegisterCommand(private val userService: UserService) : NyarukoCommandBase() {
     override fun getCommandName(): String {
@@ -19,9 +19,9 @@ class RegisterCommand(private val userService: UserService) : NyarukoCommandBase
         return "/register <senha> <repetir senha>"
     }
 
-    override suspend fun processCommandPlayer(player: EntityPlayerMP, args: Array<out String>): Array<ChatComponentText> {
+    override suspend fun processCommandPlayer(player: EntityPlayerMP, args: Array<out String>) {
         if (args.isEmpty() || args.size < 2) {
-            return arrayOf(DefaultMessage.usage(getCommandUsage(player), commandName))
+            throw MessageException(DefaultMessage.usage(RegisterMessage.usageAction()))
         }
 
         val userId = player.uniqueID.toString()
@@ -31,16 +31,16 @@ class RegisterCommand(private val userService: UserService) : NyarukoCommandBase
         val user = userService.getById(userId)
 
         if (user.isRegistered) {
-            return arrayOf(AlreadyRegisteredMessage.create())
+            throw MessageException(RegisterMessage.alreadyRegistered())
         }
 
         if (password != repeatPassword) {
-            return arrayOf(DefaultMessage.error("As senhas não são iguais"))
+            throw MessageException(DefaultMessage.error("As senhas não são iguais"))
         }
 
         userService.setPassword(userId, repeatPassword)
 
-        return arrayOf(LoginMessage.create())
+        player.sendMessages(RegisterMessage.success())
     }
 
     override fun getRequiredPermissionLevel(): Int {

@@ -16,7 +16,7 @@ class AuthModule() : KoinScopeComponent {
     private var commandManager = MinecraftServer.getServer().commandManager as ServerCommandManager
 
     fun start() {
-        loginHandler = LoginHandler(scope.get())
+        loginHandler = LoginHandler(scope.get(), scope.get())
         FMLCommonHandler.instance().bus().register(loginHandler)
 
         commandManager.registerCommand(RegisterCommand(scope.get()))
