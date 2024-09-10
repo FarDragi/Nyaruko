@@ -24,7 +24,7 @@ class RegisterCommand(private val userService: UserService) : NyarukoCommandBase
             throw MessageException(DefaultMessage.usage(RegisterMessage.usageAction()))
         }
 
-        val userId = player.uniqueID.toString()
+        val userId = player.uniqueID
         val password = args[0]
         val repeatPassword = args[1]
 

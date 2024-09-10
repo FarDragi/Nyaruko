@@ -2,24 +2,20 @@ package com.fardragi.nyaruko.auth
 
 import com.fardragi.nyaruko.auth.commands.LoginCommand
 import com.fardragi.nyaruko.auth.commands.RegisterCommand
-import com.fardragi.nyaruko.auth.handlers.LoginHandler
-import cpw.mods.fml.common.FMLCommonHandler
-import net.minecraft.command.ServerCommandManager
-import net.minecraft.server.MinecraftServer
+import com.fardragi.nyaruko.auth.handlers.AuthHandler
+import com.fardragi.nyaruko.auth.handlers.CheckHandler
+import com.fardragi.nyaruko.shared.IModule
 import org.koin.core.component.KoinScopeComponent
 import org.koin.core.component.createScope
 
-class AuthModule() : KoinScopeComponent {
+class AuthModule() : KoinScopeComponent, IModule {
     override val scope by lazy { createScope(this) }
 
-    private lateinit var loginHandler: LoginHandler
-    private var commandManager = MinecraftServer.getServer().commandManager as ServerCommandManager
+    override fun start() {
+        AuthHandler(scope.get(), scope.get(), scope.get()).register()
+        CheckHandler(scope.get()).register()
 
-    fun start() {
-        loginHandler = LoginHandler(scope.get(), scope.get())
-        FMLCommonHandler.instance().bus().register(loginHandler)
-
-        commandManager.registerCommand(RegisterCommand(scope.get()))
-        commandManager.registerCommand(LoginCommand(scope.get()))
+        RegisterCommand(scope.get()).register()
+        LoginCommand(scope.get(), scope.get()).register()
     }
 }

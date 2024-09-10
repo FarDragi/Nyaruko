@@ -9,10 +9,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.minecraft.command.CommandBase
 import net.minecraft.command.ICommandSender
+import net.minecraft.command.ServerCommandManager
 import net.minecraft.command.server.CommandBlockLogic
 import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.server.MinecraftServer
 
 abstract class NyarukoCommandBase : CommandBase() {
+    fun register(){
+        (MinecraftServer.getServer().commandManager as ServerCommandManager).registerCommand(this)
+    }
+
     override fun processCommand(sender: ICommandSender, args: Array<out String>) {
         CoroutineScope(Dispatchers.Default).launch {
             try {

@@ -1,4 +1,4 @@
-package com.fardragi.nyaruko.shared.messages
+package com.fardragi.nyaruko.utils
 
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent

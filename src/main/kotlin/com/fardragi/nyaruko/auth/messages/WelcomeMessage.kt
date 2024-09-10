@@ -1,6 +1,6 @@
 package com.fardragi.nyaruko.auth.messages
 
-import com.fardragi.nyaruko.shared.messages.MessageBuilder
+import com.fardragi.nyaruko.utils.MessageBuilder
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.EnumChatFormatting
 
@@ -8,7 +8,7 @@ object WelcomeMessage {
     fun create(isRegistered: Boolean, discordInvite: String): MessageBuilder {
         val messageBuilder = MessageBuilder()
             .addDividerLine()
-            .add { builder ->
+            .addLine { builder ->
                 builder.append("               ")
                 builder.append("123", EnumChatFormatting.AQUA) {
                     it.obfuscated()
@@ -19,7 +19,7 @@ object WelcomeMessage {
                 }
             }
             .addEmptyLine()
-            .add { builder ->
+            .addLine { builder ->
                 if (isRegistered) {
                     builder.append("Logue usando ", EnumChatFormatting.YELLOW)
                     builder.append(LoginMessage.usageAction())
@@ -29,7 +29,7 @@ object WelcomeMessage {
                 }
             }
             .addEmptyLine()
-            .add { builder ->
+            .addLine { builder ->
                 builder.append("Discord: ", EnumChatFormatting.DARK_PURPLE)
                 builder.append(discordInvite, EnumChatFormatting.BLUE) {
                     it.clickEvent(ClickEvent.Action.OPEN_URL, discordInvite)

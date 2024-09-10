@@ -2,6 +2,7 @@ package com.fardragi.nyaruko.server
 
 import com.fardragi.nyaruko.appModule
 import com.fardragi.nyaruko.auth.AuthModule
+import com.fardragi.nyaruko.core.CoreModule
 import cpw.mods.fml.common.event.FMLInitializationEvent
 import cpw.mods.fml.common.event.FMLPostInitializationEvent
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
@@ -19,8 +20,10 @@ open class ServerProxy {
     }
 
     fun onInit(event: FMLInitializationEvent) {
+        val coreModule = app.koin.get<CoreModule>()
         val authModule = app.koin.get<AuthModule>()
 
+        coreModule.start()
         authModule.start()
     }
 

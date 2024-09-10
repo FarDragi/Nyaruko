@@ -1,7 +1,7 @@
 package com.fardragi.nyaruko.auth.messages
 
-import com.fardragi.nyaruko.shared.messages.MessageBuilder
-import com.fardragi.nyaruko.shared.messages.TextBuilder
+import com.fardragi.nyaruko.utils.MessageBuilder
+import com.fardragi.nyaruko.utils.TextBuilder
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.EnumChatFormatting
@@ -21,7 +21,7 @@ object RegisterMessage {
 
     fun alreadyRegistered(): MessageBuilder {
         val messageBuilder = MessageBuilder()
-            .add { builder ->
+            .addLine { builder ->
                 builder.append("Usuario ja registrado, use ", EnumChatFormatting.YELLOW)
                 builder.append(LoginMessage.usageAction())
                 builder.append(" para entrar", EnumChatFormatting.YELLOW)
@@ -32,10 +32,10 @@ object RegisterMessage {
 
     fun success(): MessageBuilder {
         val messageBuilder = MessageBuilder()
-            .add { builder ->
+            .addLine { builder ->
                 builder.append("Registrado com sucesso", EnumChatFormatting.GREEN)
             }
-            .add { builder ->
+            .addLine { builder ->
                 builder.append("Use ", EnumChatFormatting.YELLOW)
                 builder.append(LoginMessage.usageAction())
                 builder.append(" para entrar", EnumChatFormatting.YELLOW)

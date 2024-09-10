@@ -1,4 +1,4 @@
-package com.fardragi.nyaruko.shared.messages
+package com.fardragi.nyaruko.utils
 
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
@@ -10,7 +10,7 @@ class MessageBuilder {
         return messages.toTypedArray()
     }
 
-    fun add(block: (TextBuilder) -> Unit): MessageBuilder {
+    fun addLine(block: (TextBuilder) -> Unit): MessageBuilder {
         val textBuilder = TextBuilder()
         block(textBuilder)
         messages.add(textBuilder.build())
@@ -18,14 +18,14 @@ class MessageBuilder {
         return this
     }
 
-    fun add(textBuilder: TextBuilder): MessageBuilder {
+    fun addLine(textBuilder: TextBuilder): MessageBuilder {
         messages.add(textBuilder.build())
 
         return this
     }
 
     fun addEmptyLine(): MessageBuilder {
-        add { builder ->
+        addLine { builder ->
             builder.append("")
         }
 
@@ -33,7 +33,7 @@ class MessageBuilder {
     }
 
     fun addDividerLine(): MessageBuilder {
-        add { builder ->
+        addLine { builder ->
             builder.append("-----------------------------------------------------", EnumChatFormatting.GOLD)
                 .strikethrough()
         }

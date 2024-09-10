@@ -1,14 +1,16 @@
 package com.fardragi.nyaruko.shared.messages
 
+import com.fardragi.nyaruko.utils.MessageBuilder
+import com.fardragi.nyaruko.utils.TextBuilder
 import net.minecraft.util.EnumChatFormatting
 
 object DefaultMessage {
     fun usage(usageAction: TextBuilder): MessageBuilder {
         val messageBuilder = MessageBuilder()
-            .add { builder ->
+            .addLine { builder ->
                 builder.append("Falha ao executar", EnumChatFormatting.RED)
             }
-            .add { builder ->
+            .addLine { builder ->
                 builder.append("Use ", EnumChatFormatting.YELLOW)
                 builder.append(usageAction)
             }
@@ -18,7 +20,7 @@ object DefaultMessage {
 
     fun error(message: String): MessageBuilder {
         val messageBuilder = MessageBuilder()
-            .add { builder ->
+            .addLine { builder ->
                 builder.append(message, EnumChatFormatting.RED)
             }
 
@@ -27,7 +29,7 @@ object DefaultMessage {
 
     fun success(message: String): MessageBuilder {
         val messageBuilder = MessageBuilder()
-            .add { builder ->
+            .addLine { builder ->
                 builder.append(message, EnumChatFormatting.GREEN)
             }
 

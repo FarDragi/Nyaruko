@@ -5,9 +5,10 @@ import org.jetbrains.exposed.dao.Entity
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
+import java.util.UUID
 
-class User(id: EntityID<String>) : Entity<String>(id) {
-    companion object : EntityClass<String, User>(UsersTable)
+class User(id: EntityID<UUID>) : Entity<UUID>(id) {
+    companion object : EntityClass<UUID, User>(UsersTable)
 
     var name by UsersTable.name
     private var hash by UsersTable.hash

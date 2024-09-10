@@ -1,6 +1,6 @@
 package com.fardragi.nyaruko.auth.messages
 
-import com.fardragi.nyaruko.shared.messages.TextBuilder
+import com.fardragi.nyaruko.utils.TextBuilder
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.EnumChatFormatting
