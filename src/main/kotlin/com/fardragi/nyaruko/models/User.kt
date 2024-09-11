@@ -29,5 +29,3 @@ class User(id: EntityID<UUID>) : Entity<UUID>(id) {
         )
     }
 }
-
-

@@ -1,9 +1,9 @@
 package com.fardragi.nyaruko.core.handlers
 
 import com.fardragi.nyaruko.core.events.PlayerMoveEvent
-import com.fardragi.nyaruko.extensions.teleportTo
+import com.fardragi.nyaruko.extensions.teleport
 import com.fardragi.nyaruko.shared.handlers.NyarukoHandlerBase
-import com.fardragi.nyaruko.viewmodels.PlayerPositionViewModel
+import com.fardragi.nyaruko.viewmodels.PositionViewModel
 import cpw.mods.fml.common.eventhandler.EventPriority
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent
@@ -13,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayerMP
 import java.util.UUID
 
 class PlayerTickHandler : NyarukoHandlerBase() {
-    private val playerPositions = mutableMapOf<UUID, PlayerPositionViewModel>()
+    private val playerPositions = mutableMapOf<UUID, PositionViewModel>()
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onPlayerTick(event: PlayerTickEvent) {
@@ -23,12 +23,12 @@ class PlayerTickHandler : NyarukoHandlerBase() {
         val player = event.player as EntityPlayerMP
 
         if (player.uniqueID !in playerPositions) {
-            playerPositions[player.uniqueID] = PlayerPositionViewModel(player)
+            playerPositions[player.uniqueID] = PositionViewModel(player)
             return
         }
 
         playerPositions[player.uniqueID]?.let { oldPosition ->
-            val newPosition = PlayerPositionViewModel(player)
+            val newPosition = PositionViewModel(player)
 
             if (oldPosition.block != newPosition.block) {
                 playerPositions[player.uniqueID] = newPosition
@@ -37,7 +37,7 @@ class PlayerTickHandler : NyarukoHandlerBase() {
                 playerMoveEvent.send()
 
                 if (playerMoveEvent.isCanceled) {
-                    player.teleportTo(oldPosition)
+                    player.teleport(oldPosition)
                     playerPositions[player.uniqueID] = oldPosition
                 }
             } else {
