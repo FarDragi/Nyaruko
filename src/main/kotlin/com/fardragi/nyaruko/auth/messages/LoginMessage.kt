@@ -1,5 +1,6 @@
 package com.fardragi.nyaruko.auth.messages
 
+import com.fardragi.nyaruko.utils.MessageBuilder
 import com.fardragi.nyaruko.utils.TextBuilder
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
@@ -16,5 +17,15 @@ object LoginMessage {
             }
 
         return textBuilder
+    }
+
+    fun loginBeforeGaming(): MessageBuilder {
+        val messageBuilder = MessageBuilder()
+            .addLine { builder ->
+                builder.append("Efetue o login antes de jogar", EnumChatFormatting.RED)
+            }
+            .addLine(usageAction())
+
+        return messageBuilder
     }
 }

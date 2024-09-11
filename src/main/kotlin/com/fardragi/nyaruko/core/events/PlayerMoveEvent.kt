@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayerMP
 @Cancelable
 data class PlayerMoveEvent(
     val player: EntityPlayerMP,
-    val old: PositionViewModel,
-    val new: PositionViewModel
+    val oldPosition: PositionViewModel,
+    val newPosition: PositionViewModel
 ) : NyarukoEvent() {
 }

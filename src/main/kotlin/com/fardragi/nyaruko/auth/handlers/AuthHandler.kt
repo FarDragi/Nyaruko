@@ -6,6 +6,7 @@ import com.fardragi.nyaruko.extensions.sendMessages
 import com.fardragi.nyaruko.services.SessionsService
 import com.fardragi.nyaruko.services.UserService
 import com.fardragi.nyaruko.shared.handlers.NyarukoHandlerBase
+import com.fardragi.nyaruko.viewmodels.PositionViewModel
 import cpw.mods.fml.common.eventhandler.EventPriority
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent
@@ -28,6 +29,7 @@ class AuthHandler(
 
         CoroutineScope(Dispatchers.IO).launch {
             val user = userService.getOrCreateUser(userId, userName)
+            sessionsService.loggedIn(userId, userName, PositionViewModel(player))
 
             delay(2000)
 

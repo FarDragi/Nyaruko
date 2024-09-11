@@ -5,6 +5,7 @@ import com.fardragi.nyaruko.viewmodels.PositionViewModel
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.server.MinecraftServer
+import net.minecraftforge.common.util.FakePlayer
 
 fun EntityPlayer.teleport(position: PositionViewModel) {
     val server = MinecraftServer.getServer()
@@ -41,4 +42,8 @@ fun EntityPlayer.teleport(position: PositionViewModel) {
             position.rotationPitch
         )
     )
+}
+
+fun EntityPlayer.isTruePlayer(): Boolean {
+    return this is EntityPlayerMP && this !is FakePlayer
 }

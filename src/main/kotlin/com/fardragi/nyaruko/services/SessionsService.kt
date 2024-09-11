@@ -1,17 +1,19 @@
 package com.fardragi.nyaruko.services
 
+import com.fardragi.nyaruko.exceptions.NotFoundException
 import com.fardragi.nyaruko.viewmodels.PlayerInfoViewModel
+import com.fardragi.nyaruko.viewmodels.PositionViewModel
 import java.util.UUID
 
 class SessionsService {
     private val authUsers = mutableMapOf<UUID, PlayerInfoViewModel>()
 
-    fun loggedIn(userId: UUID, name: String): Boolean {
+    fun loggedIn(userId: UUID, name: String, initialPosition: PositionViewModel): Boolean {
         if (userId in authUsers) {
             return false
         }
 
-        authUsers[userId] = PlayerInfoViewModel(name)
+        authUsers[userId] = PlayerInfoViewModel(name, initialPosition)
         return true
     }
 
@@ -24,7 +26,18 @@ class SessionsService {
         return true
     }
 
-    fun isLoggedIn(userId: UUID): Boolean {
-        return userId in authUsers
+    fun setAuthenticate(userId: UUID){
+        val playerInfo = authUsers[userId]
+            ?: throw NotFoundException(PlayerInfoViewModel::class.simpleName, userId.toString())
+
+        playerInfo.authenticated = true
+
+    }
+
+    fun isAuthenticated(userId: UUID): Boolean {
+        val playerInfo = authUsers[userId]
+            ?: throw NotFoundException(PlayerInfoViewModel::class.simpleName, userId.toString())
+
+        return playerInfo.authenticated
     }
 }

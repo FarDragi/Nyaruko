@@ -40,9 +40,11 @@ class PlayerTickHandler : NyarukoHandlerBase() {
                     player.teleport(oldPosition)
                     playerPositions[player.uniqueID] = oldPosition
                 }
-            } else {
-                playerPositions[player.uniqueID] = newPosition
+
+                return
             }
+
+            playerPositions[player.uniqueID] = newPosition
         }
     }
 

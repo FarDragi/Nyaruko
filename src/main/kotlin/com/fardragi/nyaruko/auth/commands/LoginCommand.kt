@@ -29,18 +29,18 @@ class LoginCommand(
         }
 
         val userId = player.uniqueID
-        val name = player.displayName
         val password = args[0]
+
+        if (sessionsService.isAuthenticated(userId)){
+            throw MessageException(DefaultMessage.error("Você ja esta logado"))
+        }
 
         if (!userService.checkPassword(userId, password)) {
             throw MessageException(DefaultMessage.error("Senha incorreta"))
         }
 
-        if (!sessionsService.loggedIn(userId, name)){
-            throw MessageException(DefaultMessage.error("Você ja logado"))
-        }
-
         player.sendMessages(DefaultMessage.success("Logado com sucesso"))
+        sessionsService.setAuthenticate(userId)
     }
 
     override fun getRequiredPermissionLevel(): Int {
