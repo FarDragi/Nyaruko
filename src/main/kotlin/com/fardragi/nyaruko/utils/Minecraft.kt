@@ -10,6 +10,6 @@ object Minecraft {
             if (FMLCommonHandler.instance().side.isClient) Minecraft.getMinecraft().mcDataDir
             else File(".")
 
-        return File(baseDir, "/DragiUtils")
+        return File(baseDir, "/Nyaruko")
     }
 }

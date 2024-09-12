@@ -1,4 +1,4 @@
-package com.fardragi.nyaruko.shared
+package com.fardragi.nyaruko.shared.events
 
 import cpw.mods.fml.common.eventhandler.Event
 import net.minecraftforge.common.MinecraftForge

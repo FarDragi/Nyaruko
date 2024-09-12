@@ -15,12 +15,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class AuthHandler(
-    private val userService: UserService,
-    private val discordConfig: DiscordConfig,
-    private val sessionsService: SessionsService
-) : NyarukoHandlerBase() {
+class AuthHandler() : NyarukoHandlerBase(), KoinComponent {
+    private val userService: UserService by inject()
+    private val discordConfig: DiscordConfig by inject()
+    private val sessionsService: SessionsService by inject()
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun onPlayerJoin(event: PlayerLoggedInEvent) {
         val player = event.player

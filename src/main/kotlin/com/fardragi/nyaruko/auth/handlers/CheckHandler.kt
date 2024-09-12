@@ -9,8 +9,12 @@ import com.fardragi.nyaruko.shared.handlers.NyarukoHandlerBase
 import cpw.mods.fml.common.eventhandler.EventPriority
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.event.entity.item.ItemTossEvent
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class CheckHandler(private val sessionsService: SessionsService) : NyarukoHandlerBase() {
+class CheckHandler() : NyarukoHandlerBase(), KoinComponent {
+    private val sessionsService: SessionsService by inject()
+
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onPlayerMove(event: PlayerMoveEvent) {
         if (sessionsService.isAuthenticated(event.player.uniqueID) || !event.player.isTruePlayer())

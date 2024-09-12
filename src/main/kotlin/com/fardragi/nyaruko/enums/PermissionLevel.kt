@@ -1,7 +1,17 @@
 package com.fardragi.nyaruko.enums
 
 enum class PermissionLevel(val level: Int) {
-    True(0),
+    All(0),
     Op(4),
-    False(5),
+    Nobody(5);
+
+    companion object {
+        fun fromLevel(level: Int): PermissionLevel {
+            return when (level) {
+                0 -> All
+                in 1..4 -> Op
+                else -> Nobody
+            }
+        }
+    }
 }

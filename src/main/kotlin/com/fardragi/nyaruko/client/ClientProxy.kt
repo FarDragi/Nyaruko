@@ -1,6 +1,6 @@
 package com.fardragi.nyaruko.client
 
-import com.fardragi.nyaruko.server.ServerProxy
+import com.fardragi.nyaruko.shared.IProxy
 
-class ClientProxy : ServerProxy() {
+class ClientProxy : IProxy {
 }

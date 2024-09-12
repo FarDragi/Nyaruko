@@ -8,7 +8,7 @@ import org.koin.core.component.createScope
 class CoreModule() : KoinScopeComponent, IModule {
     override val scope by lazy { createScope(this) }
 
-    override fun start() {
+    override suspend fun start() {
         PlayerTickHandler().register()
     }
 }

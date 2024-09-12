@@ -9,8 +9,12 @@ import com.fardragi.nyaruko.shared.commands.NyarukoCommandBase
 import com.fardragi.nyaruko.shared.messages.DefaultMessage
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.player.EntityPlayerMP
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class RegisterCommand(private val userService: UserService) : NyarukoCommandBase() {
+class RegisterCommand() : NyarukoCommandBase(), KoinComponent {
+    private val userService: UserService by inject()
+
     override fun getCommandName(): String {
         return "register"
     }
@@ -44,7 +48,7 @@ class RegisterCommand(private val userService: UserService) : NyarukoCommandBase
     }
 
     override fun getRequiredPermissionLevel(): Int {
-        return PermissionLevel.True.level
+        return PermissionLevel.All.level
     }
 
     override fun canCommandSenderUseCommand(sender: ICommandSender?): Boolean {

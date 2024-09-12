@@ -1,6 +1,6 @@
 package com.fardragi.nyaruko
 
-import com.fardragi.nyaruko.server.ServerProxy
+import com.fardragi.nyaruko.shared.IProxy
 import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.SidedProxy
 import cpw.mods.fml.common.event.FMLInitializationEvent
@@ -19,24 +19,28 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent
 )
 object NyarukoMod {
     @SidedProxy(serverSide = "$GROUPNAME.server.ServerProxy", clientSide = "$GROUPNAME.client.ClientProxy")
-    lateinit var proxy: ServerProxy
+    lateinit var proxy: IProxy
 
     @Mod.EventHandler
+    @Suppress("UNUSED")
     fun onPreInit(event: FMLPreInitializationEvent) {
         proxy.onPreInit(event)
     }
 
     @Mod.EventHandler
+    @Suppress("UNUSED")
     fun onInit(event: FMLInitializationEvent) {
         proxy.onInit(event)
     }
 
     @Mod.EventHandler
+    @Suppress("UNUSED")
     fun onPostInit(event: FMLPostInitializationEvent) {
         proxy.onPostInit(event)
     }
 
     @Mod.EventHandler
+    @Suppress("UNUSED")
     fun onServerStarting(event: FMLServerStartingEvent) {
         proxy.onServerStarting(event)
     }

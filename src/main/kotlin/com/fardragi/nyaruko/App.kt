@@ -7,6 +7,7 @@ import com.fardragi.nyaruko.config.DiscordConfig
 import com.fardragi.nyaruko.core.CoreModule
 import com.fardragi.nyaruko.database.DatabaseConnection
 import com.fardragi.nyaruko.permission.PermissionModule
+import com.fardragi.nyaruko.services.CommandService
 import com.fardragi.nyaruko.services.SessionsService
 import com.fardragi.nyaruko.services.UserService
 import org.koin.core.module.dsl.createdAtStart
@@ -25,15 +26,10 @@ val appModule = module {
     }
 
     single { CoreModule() }
-    scope<CoreModule> { }
-
     single { AuthModule() }
-    scope<AuthModule> {
-        scoped { UserService() }
-    }
-
     single { PermissionModule() }
-    scope<PermissionModule> { }
 
+    single { UserService() }
     single { SessionsService() }
+    single { CommandService() }
 }
