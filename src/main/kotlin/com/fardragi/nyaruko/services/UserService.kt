@@ -5,20 +5,27 @@ import com.fardragi.nyaruko.exceptions.NotFoundException
 import com.fardragi.nyaruko.models.User
 import java.util.UUID
 
-class UserService() {
+class UserService(private val groupService: GroupService) {
     suspend fun getOrCreateUser(id: UUID, name: String): User {
-        return query {
+        var isNew = false
+        val user = query {
             var user = User.findById(id)
 
             if (user == null) {
                 user = User.new(id) {
-
                     this.name = name
                 }
+                isNew = true
             }
 
             user
         }
+
+        if (isNew) {
+            groupService.registerUserInDefaultGroup(user)
+        }
+
+        return user
     }
 
     suspend fun setPassword(id: UUID, password: String) {

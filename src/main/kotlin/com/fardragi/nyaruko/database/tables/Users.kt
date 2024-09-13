@@ -5,7 +5,7 @@ import java.util.UUID
 
 object Users : IdTable<UUID>("users") {
     override val id = uuid("id").entityId()
-    val name = varchar("name", 50)
+    val name = varchar("name", 50).uniqueIndex()
     val hash = varchar("hash", 128).nullable()
 
     override val primaryKey = PrimaryKey(id)
