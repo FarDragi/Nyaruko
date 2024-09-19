@@ -18,7 +18,7 @@ class DatabaseConnection(config: DatabaseConfig) {
         runBlocking {
             query {
                 SchemaUtils.createMissingTablesAndColumns(
-                    Users, Commands, Groups, UserGroups, GroupCommands
+                    Users, Commands, Groups, UserGroups, GroupCommands, Warps
                 )
             }
         }

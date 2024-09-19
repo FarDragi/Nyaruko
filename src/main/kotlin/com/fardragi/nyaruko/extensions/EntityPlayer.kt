@@ -1,5 +1,6 @@
 package com.fardragi.nyaruko.extensions
 
+import com.fardragi.nyaruko.models.Warp
 import com.fardragi.nyaruko.utils.NyarukoTeleporter
 import com.fardragi.nyaruko.viewmodels.PositionViewModel
 import net.minecraft.entity.player.EntityPlayer
@@ -42,6 +43,10 @@ fun EntityPlayer.teleport(position: PositionViewModel) {
             position.rotationPitch
         )
     )
+}
+
+fun EntityPlayer.teleport(warp: Warp) {
+    teleport(PositionViewModel(this, warp))
 }
 
 fun EntityPlayer.isTruePlayer(): Boolean {

@@ -1,6 +1,6 @@
 package com.fardragi.nyaruko
 
-import com.fardragi.nyaruko.shared.IProxy
+import com.fardragi.nyaruko.modules.base.IProxy
 import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.SidedProxy
 import cpw.mods.fml.common.event.FMLInitializationEvent

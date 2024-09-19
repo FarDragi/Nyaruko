@@ -2,11 +2,11 @@ package com.fardragi.nyaruko.server
 
 import com.fardragi.nyaruko.NyarukoLog
 import com.fardragi.nyaruko.appModule
-import com.fardragi.nyaruko.auth.AuthModule
-import com.fardragi.nyaruko.core.CoreModule
-import com.fardragi.nyaruko.permission.PermissionModule
-import com.fardragi.nyaruko.shared.IProxy
-import com.fardragi.nyaruko.shared.events.ServerStartingEvent
+import com.fardragi.nyaruko.modules.auth.AuthModule
+import com.fardragi.nyaruko.modules.core.CoreModule
+import com.fardragi.nyaruko.modules.permission.PermissionModule
+import com.fardragi.nyaruko.modules.base.IProxy
+import com.fardragi.nyaruko.modules.base.events.ServerStartingEvent
 import cpw.mods.fml.common.event.FMLInitializationEvent
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import cpw.mods.fml.common.event.FMLServerStartingEvent
@@ -24,14 +24,10 @@ class ServerProxy : IProxy {
     }
 
     override fun onInit(event: FMLInitializationEvent) {
-        val coreModule = app.koin.get<CoreModule>()
-        val authModule = app.koin.get<AuthModule>()
-        val permissionModule = app.koin.get<PermissionModule>()
-
         runBlocking {
-            coreModule.start()
-            authModule.start()
-            permissionModule.start()
+            CoreModule().start()
+            AuthModule().start()
+            PermissionModule().start()
         }
     }
 
